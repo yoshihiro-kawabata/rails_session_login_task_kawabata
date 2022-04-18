@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  skip_before_action :login_required
+  skip_before_action :login_required, only: %i[ show ]
   before_action :set_task, only: %i[ show edit update destroy ]
 
   def index
@@ -47,4 +47,6 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:title, :content)
     end
+
+
 end
