@@ -1,3 +1,14 @@
 class ApplicationController < ActionController::Base
     include SessionsHelper
-end
+    before_action :login_required
+    
+    private
+  
+    def login_required
+        unless current_user
+        redirect_to new_session_path 
+        flash[:danger] = 'ログインしてください'
+        end
+    end
+
+    end

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :login_required, only: [:new, :create]
   before_action :set_user,  only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:show]
 
@@ -10,7 +11,6 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       if @user.save
         log_in(@user)
-        session[:user_id] = @user.id
         redirect_to tasks_path
       else
         render :new
@@ -25,8 +25,7 @@ class UsersController < ApplicationController
 
   def update
       if @user.update(user_params)
-          redirect_to user_path(@user.id)
-          flash[:notice] = 'アカウントを更新しました'
+          redirect_to user_path(@user.id), notice: t('.updated')
       else
           render :edit
       end
@@ -41,10 +40,14 @@ class UsersController < ApplicationController
   private
   def set_user
       @user = User.find(params[:id])
-  end
+    end
 
   def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
   
+  def correct_user
+      @user = User.find(params[:id])
+      redirect_to current_user unless current_user?(@user)
+  end
 end

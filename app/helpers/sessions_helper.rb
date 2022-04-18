@@ -9,6 +9,7 @@ module SessionsHelper
 
     def log_in(user)
         session[:user_id] = user.id
+        flash[:notice] = 'ログインしました'
     end
 
     def current_user?(user)

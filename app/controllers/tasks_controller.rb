@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
 
   def index
-    @tasks = Task.all
+    user_id = session[:user_id]
+    @tasks = Task.joins(:user).where(tasks: { user_id: user_id})
   end
 
   def new
@@ -44,8 +45,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :content)
+      user_id = session[:user_id]
+      params.require(:task).permit(:title, :content).merge(user_id: user_id)
     end
-
-
 end
