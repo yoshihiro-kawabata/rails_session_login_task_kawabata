@@ -20,5 +20,6 @@
   <%= f.password_field :password %>
   <%= f.label :パスワード（確認） %>
   <%= f.password_field :password_confirmation %>
-  <p><%= f.submit "登録する" %></p>
+  <p><%= f.submit "編集する" %></p>
+  <p><%= link_to t('common.back'), user_path(@user.id) %></p>
 <% end %>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html  lang="ja">
   <head>
     <title>CdpWebRailsSessionLoginTask</title>
     <%= csrf_meta_tags %>
@@ -14,11 +14,13 @@
       <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
     <% if logged_in? %>
-      <%= link_to "Profile", user_path(current_user.id) %>
-      <%= link_to "Logout", session_path(current_user.id), method: :delete %>
+    <li id="tasks-index"><%= link_to "タスク一覧", tasks_path %></li>
+    <li id="new-task"><%= link_to "タスクを登録する", new_task_path %></li>
+    <li id="my-account"><%= link_to "アカウント", user_path(current_user.id) %></li>
+    <li id="sign-out"><%= link_to "ログアウト", session_path(current_user.id), method: :delete %></li>
     <% else %>
-      <%= link_to "Sign up", new_user_path %>
-      <%= link_to "Login", new_session_path %>
+    <li id="sign-up"><%= link_to "アカウント登録", new_user_path %></li>
+    <li id="sign-in"><%= link_to "ログイン", new_session_path %></li>
     <% end %>
     <%= yield %>
   </body>
