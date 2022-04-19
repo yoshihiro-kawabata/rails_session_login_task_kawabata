@@ -26,11 +26,18 @@ class UsersController < ApplicationController
   end
 
   def update
-      if @user.update(user_params)
-          redirect_to user_path(@user.id)
-          flash[:notice] = 'アカウントを更新しました'
+      check_user = user_params
+      if check_user[:password] == ""
+        check_user[:password] = nil
+        @user.update(check_user)
+         render :edit
       else
-          render :edit
+        if @user.update(user_params)
+            redirect_to user_path(@user.id)
+            flash[:notice] = 'アカウントを更新しました'
+        else
+            render :edit
+       end
       end
   end
   
@@ -49,7 +56,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
   
-  def correct_user
+def correct_user
       @user = User.find(params[:id])
       redirect_to current_user unless current_user?(@user)
   end
