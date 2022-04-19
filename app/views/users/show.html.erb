@@ -1,5 +1,5 @@
 <h1><%= t('.title') %></h1>
 <p>名前: <%= @user.name %></p>
 <p>メールアドレス: <%= @user.email %></p>
-<a id="edit-user"><%= link_to t('common.edit'), edit_user_path(current_user.id) %></a>｜
-<a id="destroy-user"><%= link_to t('common.destroy'), @user, method: :delete, data: { confirm: t('common.confirm_destroy') } %></a>
+<%= link_to t('common.edit'), edit_user_path(current_user.id) %>｜
+<%= link_to t('common.destroy'), @user, method: :delete, data: { confirm: t('common.confirm_destroy') } %>

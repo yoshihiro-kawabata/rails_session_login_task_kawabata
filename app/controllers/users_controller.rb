@@ -10,9 +10,10 @@ class UsersController < ApplicationController
   def create
       @user = User.new(user_params)
       if @user.save
-        flash[:notice] = 'アカウントを登録しました'
         log_in(@user)
+        session[:user_id] = @user.id
         redirect_to tasks_path
+        flash[:notice] = 'アカウントを登録しました'
       else
         render :new
       end
@@ -26,10 +27,10 @@ class UsersController < ApplicationController
 
   def update
       if @user.update(user_params)
-          flash[:notice] = 'アカウントを更新しました'
           redirect_to user_path(@user.id)
+          flash[:notice] = 'アカウントを更新しました'
       else
-          redirect_to edit_user_path
+          render :edit
       end
   end
   
