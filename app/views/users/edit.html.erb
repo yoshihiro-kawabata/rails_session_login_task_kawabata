@@ -1,4 +1,4 @@
-<h1><%= t('.title') %></h1>
+<h1>アカウント編集ページ</h1>
 
 <% if @user.errors.any? %>
   <div id="error_explanation">
@@ -22,4 +22,4 @@
   <%= f.password_field :password_confirmation %>
   <p><%= f.submit "編集する" %></p>
 <% end %>
-<p><%= link_to t('common.back'), user_path(@user.id), id: "back" %></p>
+<p><%= link_to t('common.back'), tasks_path, id: "back" %></p>
